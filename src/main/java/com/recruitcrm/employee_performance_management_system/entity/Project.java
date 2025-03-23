@@ -1,5 +1,7 @@
 package com.recruitcrm.employee_performance_management_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"department","employees"})
 public class Project {
 
     @Id
@@ -31,6 +34,6 @@ public class Project {
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
-    @ManyToMany(mappedBy = "projects")
-    private Set<Employee> employees;
+    @OneToMany(mappedBy = "project",fetch = FetchType.LAZY)
+    private Set<EmployeeProject> employeeProjects;
 }

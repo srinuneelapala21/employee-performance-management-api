@@ -40,11 +40,15 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private Set<PerformanceReview> performanceReviews;
 
-    @ManyToMany
-    @JoinTable(
-        name = "employee_project",
-        joinColumns = @JoinColumn(name = "employee_id"),
-        inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
-    private Set<Project> projects;
+//    @ManyToMany
+//    @JoinTable(
+//        name = "employee_project",
+//        joinColumns = @JoinColumn(name = "employee_id"),
+//        inverseJoinColumns = @JoinColumn(name = "project_id")
+//    )
+//    private Set<Project> projects;
+
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private Set<EmployeeProject> employeeProjects;
+
 }

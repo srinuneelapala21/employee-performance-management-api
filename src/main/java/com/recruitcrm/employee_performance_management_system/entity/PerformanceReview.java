@@ -1,5 +1,6 @@
 package com.recruitcrm.employee_performance_management_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties("employee")
 public class PerformanceReview {
 
     @Id
@@ -24,7 +26,7 @@ public class PerformanceReview {
     @Column(name = "review_date", nullable = false)
     private LocalDate reviewDate;
 
-    private Integer score;
+    private Double score;
 
     @Column(name = "review_comments")
     private String reviewComments;
