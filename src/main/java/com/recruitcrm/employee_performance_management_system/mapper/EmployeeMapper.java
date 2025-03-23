@@ -5,12 +5,16 @@ import com.recruitcrm.employee_performance_management_system.model.EmployeeRespo
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring",uses = {ProjectMapper.class, PerformanceReviewMapper.class})
 public interface EmployeeMapper {
 
         @Mapping(source = "manager.name", target = "manager")
         @Mapping(target = "projects", source = "employeeProjects")
         EmployeeResponse toEmployeeResponse(Employee employee);
+
+        List<EmployeeResponse> toEmployeeItems(List<Employee> employeeList);
 
 
 }

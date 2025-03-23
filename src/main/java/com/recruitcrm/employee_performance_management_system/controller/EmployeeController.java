@@ -20,20 +20,20 @@ public class EmployeeController {
 
     // Get employees with filters
     @GetMapping("/filter")
-    public ResponseEntity<List<Employee>> getFilteredEmployees(
+    public ResponseEntity<List<EmployeeResponse>> getFilteredEmployees(
             @RequestParam(required = false) Double performanceScore,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate reviewDate,
             @RequestParam(required = false) List<Long> departmentIds,
             @RequestParam(required = false) List<Long> projectIds) {
 
-        List<Employee> employees = employeeService.getFilteredEmployee(performanceScore, reviewDate, departmentIds, projectIds);
+        List<EmployeeResponse> employees = employeeService.getFilteredEmployee(performanceScore, reviewDate, departmentIds, projectIds);
         return ResponseEntity.ok(employees);
     }
 
     // Get detailed employee information
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeResponse> getEmployeeDetails(@PathVariable Long id) {
-        EmployeeResponse employee = employeeService.getEmployeeDetails(id);
+    public ResponseEntity<EmployeeResponse> getEmployeeDetailsById(@PathVariable Long id) {
+        EmployeeResponse employee = employeeService.getEmployeeDetailsById(id);
         return ResponseEntity.ok(employee);
     }
 }

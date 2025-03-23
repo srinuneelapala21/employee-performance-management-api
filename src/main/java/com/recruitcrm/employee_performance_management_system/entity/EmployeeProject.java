@@ -1,5 +1,6 @@
 package com.recruitcrm.employee_performance_management_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"employee"})
 public class EmployeeProject {
 
     @EmbeddedId

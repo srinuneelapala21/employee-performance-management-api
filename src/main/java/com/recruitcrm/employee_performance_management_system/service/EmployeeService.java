@@ -24,12 +24,15 @@ public class EmployeeService {
 
     private final PerformanceReviewMapper performanceReviewMapper;
 
-    public List<Employee> getFilteredEmployee(Double performanceScore, LocalDate reviewDate, List<Long> departmentIds, List<Long> projectIds) {
-//        return employeeRepository.findEmployeesByFilters(performanceScore, reviewDate, departmentIds, projectIds);
-        return null;
+    public List<EmployeeResponse> getFilteredEmployee(Double performanceScore, LocalDate reviewDate, List<Long> departmentIds, List<Long> projectIds) {
+        List<Employee> employeeList = employeeRepository.findEmployeesByFilters(performanceScore, reviewDate, departmentIds, projectIds);
+        if(employeeList.isEmpty()){
+            return null;
+        }
+        return employeeMapper.toEmployeeItems(employeeList);
     }
 
-    public EmployeeResponse getEmployeeDetails(Long employeeId) {
+    public EmployeeResponse getEmployeeDetailsById(Long employeeId) {
         Employee employee = employeeRepository.findEmployeeWithDetails(employeeId)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
 

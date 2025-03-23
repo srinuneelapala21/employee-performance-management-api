@@ -44,6 +44,25 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 //            @Param("projectIds") List<Long> projectIds
 //    );
 
+    @Query("""
+                SELECT DISTINCT e FROM Employee e
+                LEFT JOIN FETCH e.department d
+                LEFT JOIN FETCH e.performanceReviews pr
+                LEFT JOIN FETCH e.employeeProjects ep
+                LEFT JOIN FETCH ep.project p
+                WHERE (:performanceScore IS NULL OR pr.score = :performanceScore)
+                AND (:reviewDate IS NULL OR pr.reviewDate = :reviewDate)
+                AND (:departmentIds IS NULL OR d.id IN :departmentIds)
+                AND (:projectIds IS NULL OR p.id IN :projectIds)
+            """)
+    List<Employee> findEmployeesByFilters(
+            @Param("performanceScore") Double performanceScore,
+            @Param("reviewDate") LocalDate reviewDate,
+            @Param("departmentIds") List<Long> departmentIds,
+            @Param("projectIds") List<Long> projectIds
+    );
+
+
 
 
 //    @Query("SELECT e FROM Employee e " +
@@ -63,13 +82,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 //    Optional<Employee> findEmployeeWithDetails(@Param("employeeId") Long employeeId);
 
     @Query("""
-    SELECT e FROM Employee e
-    LEFT JOIN FETCH e.department d
-    LEFT JOIN FETCH e.employeeProjects ep
-    LEFT JOIN FETCH ep.project p
-    LEFT JOIN FETCH e.performanceReviews pr
-    WHERE e.id = :employeeId
-""")
+                SELECT e FROM Employee e
+                LEFT JOIN FETCH e.department d
+                LEFT JOIN FETCH e.employeeProjects ep
+                LEFT JOIN FETCH ep.project p
+                LEFT JOIN FETCH e.performanceReviews pr
+                WHERE e.id = :employeeId
+            """)
     Optional<Employee> findEmployeeWithDetails(@Param("employeeId") Long employeeId);
 
 }
