@@ -1,9 +1,8 @@
 package com.recruitcrm.employee_performance_management_system.controller;
 
-import com.recruitcrm.employee_performance_management_system.entity.Employee;
 import com.recruitcrm.employee_performance_management_system.model.EmployeeResponse;
 import com.recruitcrm.employee_performance_management_system.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +11,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/employee")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     // Get employees with filters
     @GetMapping("/filter")
