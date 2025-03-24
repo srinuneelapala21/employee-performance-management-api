@@ -28,7 +28,7 @@ public class EmployeeService {
     public List<EmployeeResponse> getFilteredEmployee(Double performanceScore, LocalDate reviewDate, List<Long> departmentIds, List<Long> projectIds) {
         List<Employee> employeeList = employeeRepository.findEmployeesByFilters(performanceScore, reviewDate, departmentIds, projectIds);
         if(employeeList.isEmpty()){
-            return null;
+            throw new ResourceNotFoundException("No Employee Found with given Data");
         }
         return employeeMapper.toEmployeeItems(employeeList);
     }
