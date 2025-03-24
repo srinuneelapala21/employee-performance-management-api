@@ -52,7 +52,7 @@ public class EmployeeController {
                     @ApiResponse(responseCode = "200", description = "Successfully retrieved employee details",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = EmployeeResponse.class))),
-                    @ApiResponse(responseCode = "500", description = "Internal Server Error")
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")  
             }
     )
     @GetMapping("/{id}")
