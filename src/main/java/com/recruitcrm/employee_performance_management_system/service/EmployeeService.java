@@ -2,6 +2,7 @@ package com.recruitcrm.employee_performance_management_system.service;
 
 import com.recruitcrm.employee_performance_management_system.entity.Employee;
 import com.recruitcrm.employee_performance_management_system.entity.PerformanceReview;
+import com.recruitcrm.employee_performance_management_system.exception.ResourceNotFoundException;
 import com.recruitcrm.employee_performance_management_system.mapper.EmployeeMapper;
 import com.recruitcrm.employee_performance_management_system.mapper.PerformanceReviewMapper;
 import com.recruitcrm.employee_performance_management_system.model.EmployeeResponse;
@@ -34,7 +35,7 @@ public class EmployeeService {
 
     public EmployeeResponse getEmployeeDetailsById(Long employeeId) {
         Employee employee = employeeRepository.findEmployeeWithDetails(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee with given Id is not found"));
 
         // Sort and limit last 3 performance reviews
         List<PerformanceReviewResponse> lastThreeReviews = employee.getPerformanceReviews().stream()
